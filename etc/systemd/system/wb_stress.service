@@ -1,0 +1,12 @@
+[Unit]
+Description=WB stress test service
+ConditionPathExists=!/home/admin/stress_wb/pass
+ConditionPathExists=!/home/admin/stress_wb/fail
+
+[Service]
+ExecStart=/bin/bash -c "/home/admin/stress_wb/bin/wb_stress.sh" > /dev/console
+Type=oneshot
+User=root
+
+[Install]
+WantedBy=multi-user.target
