@@ -15,7 +15,7 @@ STRESS_WB_FAIL_FILE=/home/admin/stress_wb/fail
 
 lsusb_lspci_orig() {
     echo "Save first lsusb and lspci log"
-    LD_LIBRARY_PATH=$STRESS_WB_DIR/lib $STRESS_WB_DIR/bin/lsusb > $STRESS_WB_DIR/data/lsusb_original 2>/dev/null || true
+    LD_LIBRARY_PATH=$STRESS_WB_DIR/lib $STRESS_WB_DIR/bin/lsusb | cut -d ' ' -f 6 | sort > $STRESS_WB_DIR/data/lsusb_original 2>/dev/null || true
     LD_LIBRARY_PATH=$STRESS_WB_DIR/lib $STRESS_WB_DIR/bin/lspci > $STRESS_WB_DIR/data/lspci_original || true
 }
 
@@ -29,7 +29,7 @@ check_lsusb_lspci() {
     echo "Wait $STRESS_BOOT_UP_DELAY sec then check lsusb and lspci"
     sleep $STRESS_BOOT_UP_DELAY
     error=
-    LD_LIBRARY_PATH=$STRESS_WB_DIR/lib $STRESS_WB_DIR/bin/lsusb > $STRESS_WB_DIR/data/lsusb_test 2>/dev/null
+    LD_LIBRARY_PATH=$STRESS_WB_DIR/lib $STRESS_WB_DIR/bin/lsusb | cut -d ' ' -f 6 | sort > $STRESS_WB_DIR/data/lsusb_test 2>/dev/null
     LD_LIBRARY_PATH=$STRESS_WB_DIR/lib $STRESS_WB_DIR/bin/lspci > $STRESS_WB_DIR/data/lspci_test
 
     set +e
